@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Organisasi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, red, yellow) #0f0f0f;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        header .logo img {
+            width: 120px;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 8px 20px;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: #b5aca6;
+            transition: all 0.4s ease;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        nav a:hover::before {
+            width: 0;
+            height: 0;
+        }
+
+        nav a:hover {
+            color: #000;
+            z-index: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            background: url('https://via.placeholder.com/2000x900') center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+            background-attachment: fixed;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .hero-text {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 15px;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        /* Seksi Umum */
+        section {
+            padding: 60px 10%;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h2::before {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: #feb47b;
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+        }
+
+        .content {
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+
+        /* Tim Kami */
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .team-member {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .team-member img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .team-member h3 {
+            margin-top: 10px;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+        }
+
+        .team-member p {
+            color: #feb47b;
+            font-weight: bold;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .team-member:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Form Kontak */
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            background-color: #333;
+            border: 1px solid #555;
+            border-radius: 10px;
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 15px;
+            background-color: #feb47b;
+            border: none;
+            color: #000;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #feac53;
+        }
+
+        /* Footer */
+        footer {
+            background: #111;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        /* Media Query untuk Mobile */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 5%;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .team-members {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .contact-form input,
+            .contact-form textarea {
+                font-size: 1.1rem;
+            }
+        }
+        /* Styling dasar untuk struktur organisasi */
+        .org-chart {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        .org-chart li {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px;
+            background-color: #a76f40;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .org-chart li ul {
+            display: flex;
+            justify-content: center;
+            padding-top: 20px;
+        }
+
+        .org-chart li ul li {
+            margin: 10px;
+        }
+
+        .org-chart li::before {
+            content: '';
+            display: block;
+            width: 2px;
+            height: 20px;
+            background-color: #a76f40;
+            margin: 0 auto;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+        }
+
+        .org-chart li > ul > li::before {
+            content: '';
+            display: none;
+        }
+
+        /* Efek zoom saat hover */
+        .social-icons {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons li {
+            display: inline;
+        }
+
+        .social-icons a {
+            display: block;
+            width: 40px;
+            height: 40px;
+        }
+
+        .social-icons img {
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons img:hover {
+            transform: scale(1.1); /* Efek zoom saat hover */
+        }
+    </style>
+</head>
+
+
+
+<!-- Navbar -->
+<header>
+    <div class="logo">
+        <img src="pmkm.jpg" alt="Logo Organisasi">
+    </div>
+    <nav>
+        <a href="#about">Tentang</a>
+        <a href="#mission">Misi</a>
+        <a href="#vision">Visi</a>
+        <a href="#team">Tim Kami</a>
+        <a href="#contact">Kontak</a>
+    </nav>
+</header>
+
+<!-- Hero Section -->
+<div class="hero">
+    <div class="hero-text">
+        <h1>Selamat Datang</h1>
+        <h1> PMKM MAROS </h1>
+        <p>Meningkatkan UMKM di Kabupaten Maros melalui Peningkatan Kualitas Usaha dan Kemudahan Akses Permodalan .</p>
+    </div>
+</div>
+
+<!-- Tentang Kami -->
+<section id="about">
+    <h2>Tentang Kami</h2>
+    <div class="content">
+        <p>PMKM Prima DPC Kabupaten Maros, Perkumpulan Pengusaha Mikro, Kecil, dan Menengah, adalah organisasi yang berfokus untuk memberikan dukungan menyeluruh bagi pengusaha UMKM dalam upaya mereka untuk berkembang dan sukses dalam bisnis. Dengan visi menjadi suara kolektif bagi para pengusaha UMKM di Kabupaten Maros, kami bertekad untuk menciptakan kondisi yang mendukung bagi pertumbuhan dan kesejahteraan UMKM.</p>
+        <P>Kami meyakini bahwa UMKM adalah inti dari ekonomi lokal dan berperan sebagai penggerak utama dalam menciptakan lapangan pekerjaan serta mendorong pertumbuhan ekonomi yang inklusif. Karena itu, kami berkomitmen untuk memberikan dukungan yang diperlukan agar pengusaha UMKM dapat berkembang dan bersaing secara efektif di pasar yang semakin kompleks.</P>
+        <P>JUntuk itu, kami menyediakan berbagai layanan dan program yang dirancang khusus untuk memenuhi kebutuhan spesifik para pengusaha UMKM, mulai dari pelatihan, pembinaan, hingga advokasi bisnis dan pengembangan jaringan. Kami memahami bahwa setiap usaha memiliki tantangan dan peluang yang berbeda, oleh karena itu kami berusaha memberikan solusi yang tepat sesuai dengan kebutuhan dan tujuan bisnis Anda.</P>
+        <P>Bersama-sama, kita dapat membangun masa depan yang lebih cerah dan berkelanjutan bagi dunia UMKM di Kabupaten Maros.</P>
+    </div>
+</section>
+
+<!-- Misi Kami -->
+<section id="mission">
+    <h2>Misi Kami</h2>
+    <div class="content">
+        <ul>
+            <li>Meningkatkan Produktivitas, Kemandirian, dan Kesejahteraan pelaku UMKM</li>
+            <li>Meningkatkan Kompetensi dan Daya Saing pelaku UMKM di Pasar Nasional maupun Global</li>
+            <li>Meningkatkan Kerjasama dan Gotong Royong para pelaku UMKM seluruh Indonesia agar tumbuh dan berkembang menjadi kokoh</li>
+            <li> Meningkatkan Akselerasi Jaringan Kerjasama antar para pelaku UMKM dalam dan luar negeri</li>
+            <li>Membantu Program Pemerintah dalam menanggulangi Pengangguran dan Pengentasan Kemiskinan</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Visi Kami -->
+<section id="vision">
+    <h2>Visi Kami</h2>
+    <div class="content">
+        <p>Menjadikan UMKM KAbupaten Maros yang produktif, mandiri, berdaya saing, dan sejahtera</p>
+    </div>
+</section>
+
+<!-- Tim Kami -->
+<section id="team">
+    <h2>Struktur Pengurus Cabang PMKM Maros</h2>
+    <ul class="org-chart">
+        <li>
+            <div>Ketua</div>
+            <h4>DR. Haeruddin, S.HI., MH.</h4>
+            <ul>
+                <li>
+                    <div>Wakil Ketua I </div>
+                    <h4>M. Firdaus B</h4>
+                    <ul>
+                        <li>
+                            <div> </div>
+                            <h4></h4>
+                        </li>
+                        <li>
+                            <div></div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div>Wakil Ketua II </div>
+                    <h4>Andi Ferry Vibriyansyah</h4>
+                    <ul>
+                        <li>
+                            <div></div>
+                        </li>
+                        <li>
+                            <div></div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div>Sekretaris</div>
+                    <h4>Kabil Rasyid, A. Md</h4>
+                    <ul>
+                        <li>
+                            <div></div>
+                        </li>
+                        <li>
+                            <div></div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</section>
+
+<!-- Kontak Kami -->
+<section id="contact">
+    <h2>Kontak Kami</h2>
+    <div class="contact-form">
+        <form action="#">
+            <input type="text" name="name" placeholder="Nama Anda" required>
+            <input type="email" name="email" placeholder="Email Anda" required>
+            <textarea name="message" placeholder="Pesan Anda" rows="5" required></textarea>
+            <button type="submit">Kirim Pesan</button>
+        </form>
+    </div>
+</section>
+
+
+<p>Follow kami di media sosial:</p>
+
+<!-- Daftar Ikon Media Sosial -->
+<ul class="social-icons">
+    <li><a href="https://www.facebook.com/yourprofile" target="_blank" title="Facebook">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+    </a> Pmkm Dpc Maros</li>
+    <li><a href="https://www.instagram.com/yourprofile" target="_blank" title="Instagram">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png" alt="Instagram">
+    </a>@pmkmdpcmaros</li>
+</ul>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 PMKM KABUPATEN MAROS | Semua hak cipta dilindungi.</p>
+</footer>
+
+</body>
+</html>
